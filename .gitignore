@@ -1,0 +1,22 @@
+# 构建产物（build.sh 生成）
+build/
+out/
+*.apk
+*.idsig
+
+# 签名与密钥：绝对不要入库
+*.jks
+*.keystore
+key.properties
+
+# 本机取证/导出（应用跑到 Download 里的图，不该进仓库）
+evidence/
+*.png.tmp
+
+# IDE / 编辑器
+.idea/
+*.iml
+.vscode/
+
+# 其它
+*.log
