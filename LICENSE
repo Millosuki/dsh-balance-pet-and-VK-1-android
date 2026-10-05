@@ -1,25 +1,7 @@
 MIT License
 
-Copyright (c) 2026 dshpet contributors
-
-本项目的**代码**（java/ 下的全部源码、build.sh、verify.sh、docs/ 与其它文档）采用 MIT 许可。
-
---------------------------------------------------------------------------------
-关于**美术与音效素材**（本许可不覆盖，或按各自上游条款使用 —— 详见 PROVENANCE.md）：
-
-* **来自 VKmich16/VK-1（MIT）** —— 其许可明确覆盖角色美术与音效，并说明移植到其它平台
-  「注明来源即可」→ 随本项目按 MIT 分发，但**必须保留来源说明**：
-    角色立绘 `assets/sprite.png`、`sprite-gpt.png`、`sprite-claude.png`、`sprite-gemini.png`、
-    `sprite-deepseek-offline.png`　+　音效 `res/raw/hit.mp3`
-
-* **来自 MeteorNOX/DeepSeek-Balance-Whale-Widget（`assets/**` 不在其 MIT 范围内）** ——
-  该项目明确写过「`assets/**` 不适用 MIT，按 as-is 随包分发、不授予再许可」。
-  本项目**原样携带**下列文件并以同一方式声明：它们**不在本项目的 MIT 许可范围内**，
-  仅为让本应用按原样呈现/发声而随包提供；如需再分发或商用，请自行确认权利状态：
-    图片 `assets/sprite-whale.png`（取自其 `assets/DSniang1.png`，按高度适配合成到 1536×1024 画布）
-    音效 `res/raw/ya1.mp3`、`ya2.mp3`、`d1.mp3`、`d2.mp3`
-    （与其 `assets/Ya1.mp3`、`Ya2.mp3`、`D1.mp3`、`D2.mp3` 逐字节一致；哈希见 `assets.sha256`）
---------------------------------------------------------------------------------
+Copyright (c) 2026 Millosuki (project owner) and the AI co-authors
+(DeepSeek-V4.1-Flash, DeepSeek-V4-Pro-0813)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

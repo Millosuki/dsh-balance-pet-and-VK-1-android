@@ -7,7 +7,7 @@
 > ⚠️ **非官方移植 · 仅供学习交流**：本项目**不是** DeepSeek 官方产品，与 DeepSeek 无隶属或背书关系。
 > 代码按 **MIT** 发布。素材分两栏 —— 来自上游 **VK-1** 的 5 张立绘与 `res/raw/hit.mp3` 随 MIT 分发（保留来源说明）；
 > `assets/sprite-whale.png` 与 `res/raw/ya1.mp3`、`ya2.mp3`、`d1.mp3`、`d2.mp3` **不在本项目 MIT 范围内**（原样携带）。
-> 详见 `LICENSE`、`PROVENANCE.md`。
+> 详见 `LICENSE`（代码）、`NOTICE`（素材）、`PROVENANCE.md`（来源与逐字节核对）。
 
 ## 这是什么
 
@@ -26,7 +26,7 @@
 - **代码与自检**：由 **AI（DeepSeek）** 编写，并由它自己完成离线自检与真机取证；
 - **所使用的 AI Agent 应用**：[Operit](https://github.com/AAswordman/Operit)（Android 平台上的 AI Agent，https://operit.app）；
 - **需求、验收与日常使用反馈**：**Millosuki**；
-- *开发过程消耗的 API 费用：22.15（由 Millosuki 承担）*。
+- *开发过程消耗的 API 费用：¥22.15（由 Millosuki 承担）*。
 
 ### 注意
 
@@ -81,17 +81,20 @@ MainActivity（设置页：通用 / VK-1 / Whale挂件）
 docs/ARCHITECTURE.md      代码结构 / 数据流 / 别顺手改掉的设计约束
 docs/BUILD.md             无 Gradle 构建、环境变量、安装、自检、踩过的坑
 CONTRIBUTING.md           硬性开发规则（自检必须过 / 版本两处 bump / 用补丁脚本改大文件…）
-PROVENANCE.md             素材来源与逐字节核对方式（许可证待作者拍板）
-OPEN_SOURCE_CHECKLIST.md  开源准备进度 + 待拍板事项
+LICENSE                   代码许可：标准 MIT 正文
+NOTICE                    素材许可边界（哪一栏随 MIT、哪一栏不在 MIT 内）
+PROVENANCE.md             素材来源、逐字节核对方式、许可边界
+CHANGELOG.md              完整更新记录（App 内「关于 · 更新记录」读的就是它的副本）
+OPEN_SOURCE_CHECKLIST.md  开源准备进度
 AndroidManifest.xml
-res/                      图标、字符串、res/raw/hit.mp3（原版音效）
-assets/                   四张立绘 + 抱盆图（与上游逐字节一致）
+res/                      图标、字符串、音效（hit.mp3 原版扣费音 + ya1/ya2/d1/d2 按压松开音）
+assets/                   五张立绘 + 抱盆图 + Whale 小鲸鱼（与上游逐字节一致，边界见 NOTICE）
 java/com/dsh/balancepet/
   PetModel.java           账本（真实/屏显余额）+ 动画（3 层受伤叠加）
   PetRenderer.java        渲染器：预缩放立绘、预渲染文字层、飘字位图缓存
   PetSceneLayout/View     单窗口渲染与轮廓分带窗口
   PetService.java         前景服务：窗口、菜单、拖动、轮询、音效、通知、状态快照
-  MainActivity.java       设置界面（权限/角色/尺寸/帧率/音效/凭证/诊断）
+  MainActivity.java       设置界面（权限/角色/尺寸/帧率/音效/凭证/诊断/关于）
   PetControlReceiver.java ★ 脚本化控制广播（需控制令牌，见下）
   PetTuning.java          ★ 与上游对齐的全部魔法数字（升级时只改这里）
   UpstreamInfo.java       ★ 上游版本基线：commit、文件对应表、素材哈希
@@ -100,7 +103,7 @@ java/com/dsh/balancepet/
   SpendLedger.java        本地记账内核（v1.12.0：观测余额下降 → 今日已用 / 累计 / 充值）
   CredentialStore.java    凭证解析（YAML 迷你读取器）
   YamlMini.java, PetPaths.java, Log.java, PetState.java, PollSchedule.java
-  SelfTests.java          离线自检（819 项）
+  SelfTests.java          离线自检（908 项）
 build.sh                  无 Gradle 构建脚本（aapt2 + javac + d8 + apksigner）
 verify.sh                 重建 + 签名校验 + 素材哈希 + dex 标记校验
 ```
@@ -151,7 +154,8 @@ am broadcast -n com.dsh.balancepet/.PetControlReceiver -a com.dsh.balancepet.CON
 
 ## 更新记录
 
-完整历史更新记录（v1.2 → v1.14.2）见 [`CHANGELOG.md`](CHANGELOG.md)。
+完整历史更新记录（v1.2 → v1.14.3）见 [`CHANGELOG.md`](CHANGELOG.md)。
+App 里也能看：**设置 → 通用 → 「关于 · 更新记录」**，或者**点设置页最上面那行版本号**。
 
 ## 与上游的差异（有意为之）
 

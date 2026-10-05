@@ -52,7 +52,7 @@ public final class MainActivity extends Activity {
             /** 这一次备份是否要把 API Key / 凭证也打进去（界面上问过用户）。 */
             private boolean backupIncludeCredentials;
     /** 每次行为变更都更新这个版本号，避免版本身份不清。 */
-    public static final String VERSION = "1.14.2-android";
+    public static final String VERSION = "1.14.3-android";
 
     private PetState state;
     private boolean night;
@@ -278,6 +278,10 @@ public final class MainActivity extends Activity {
         head.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         head.setTextColor(subColor());
         head.setPadding(0, 0, 0, dp(10));
+        // v1.14.3：彩蛋 —— 点这行版本号 = 打开「关于 · 更新记录」
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { showAbout(); }
+        });
         content.addView(head);
 
         statusLine = new TextView(this);
@@ -1267,6 +1271,15 @@ bubbleCard.addView(divider());
             }
         }));
         content.addView(diag);
+        // v1.14.3：关于 / 更新记录（正文来自仓库根目录的 CHANGELOG.md，build.sh 构建时打进 assets/）
+        section("关于");
+        LinearLayout aboutCard = cardContainer();
+        aboutCard.addView(actionRow("关于 · 更新记录…",
+                "版本 / 许可 / 上游与致谢 / 完整更新记录（也可以点最上面那行版本号）",
+                new Runnable() {
+                    @Override public void run() { showAbout(); }
+                }));
+        content.addView(aboutCard);
 
         }
 
@@ -1426,6 +1439,66 @@ bubbleCard.addView(divider());
     private void showSelfTest() {
         dialog("离线自检结果", SelfTests.run(this));
     }
+
+    /**
+     * v1.14.3：关于 · 更新记录。
+     *
+     * <p>更新记录的正文来自仓库根目录的 {@code CHANGELOG.md}：{@code build.sh} 会在构建时把它
+     * 复制成 {@code assets/CHANGELOG.md}（构建产物、不入库），所以这里显示的就是仓库里那一份，
+     * 不会出现「App 里写的更新记录和仓库对不上」。
+     */
+    private void showAbout() {
+        String ver = VERSION.endsWith("-android")
+                ? VERSION.substring(0, VERSION.length() - "-android".length()) : VERSION;
+        StringBuilder sb = new StringBuilder();
+        sb.append("DeepSeek 余额桌宠 · Android 移植版\n")
+                .append("版本：").append(VERSION).append("\n")
+                .append("许可：代码 MIT；素材分两栏（详见 LICENSE 与 NOTICE）\n\n")
+                .append("上游基线：").append(UpstreamInfo.UPSTREAM_VERSION)
+                .append(" @ ").append(UpstreamInfo.UPSTREAM_COMMIT).append("\n")
+                .append("（").append(UpstreamInfo.UPSTREAM_COMMIT_DATE).append("）\n\n")
+                .append("本项目 = 移植（在 Android 上重新实现）+ 融合（两套体系合为一套），")
+                .append("两个上游都要感谢：\n")
+                .append("· VKmich16/VK-1 —— 原版桌面宠物（Windows PowerShell + macOS Swift）\n")
+                .append("   ").append(UpstreamInfo.REPO).append("\n")
+                .append("· MeteorNOX/DeepSeek-Balance-Whale-Widget —— 网页挂件（泡泡体系）\n")
+                .append("   ").append(UpstreamInfo.REPO_WHALE).append("\n\n")
+                .append("本仓库：").append(UpstreamInfo.REPO_SELF).append("\n\n")
+                .append("作者：纯 AI 结对编程（webcoding）产物\n")
+                .append("　第一作者 ").append(UpstreamInfo.AUTHOR_AI_PRIMARY).append("\n")
+                .append("　第二作者 ").append(UpstreamInfo.AUTHOR_AI_SECOND).append("\n")
+                .append("　通讯作者 ").append(UpstreamInfo.AUTHOR_CONTACT).append("\n")
+                .append("所使用的 AI Agent 应用：").append(UpstreamInfo.AGENT_APP)
+                .append("（").append(UpstreamInfo.AGENT_APP_REPO).append("）\n\n")
+                .append("素材边界：assets/sprite-whale.png 与 res/raw/ya1|ya2|d1|d2.mp3 ")
+                .append("不在本项目 MIT 范围内（原样携带，as-is）\n")
+                .append("侵权处理与联系方式：见仓库 README\n\n")
+                .append("————————————————————————————\n\n")
+                .append(readChangelogAsset());
+        dialog("关于 · 更新记录 " + ver, sb.toString());
+    }
+
+    /** 读构建时打进 assets 的 CHANGELOG.md；读不到就如实说明，不假装成功。 */
+    private String readChangelogAsset() {
+        java.io.InputStream in = null;
+        try {
+            in = getAssets().open("CHANGELOG.md");
+            java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) bos.write(buf, 0, n);
+            String text = new String(bos.toByteArray(), "UTF-8");
+            // 让纯文本视图里更好读：把 markdown 的标题记号换成符号
+            return text.replace("### ", "■ ").replace("## ", "◆ ");
+        } catch (Exception e) {
+            return "（更新记录不可用：读不到 assets/CHANGELOG.md —— " + e + "）";
+        } finally {
+            if (in != null) {
+                try { in.close(); } catch (Exception ignored) { }
+            }
+        }
+    }
+
 
     private String alphaLabel(int alpha) {
         return Math.round(alpha / 255f * 100) + "%（" + alpha + "/255）";

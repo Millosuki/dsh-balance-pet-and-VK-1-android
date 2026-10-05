@@ -53,6 +53,7 @@ public final class SelfTests {
                 testCharacterRegistry();
                         testBackupRoundTrip();
         if (context != null) testArtwork(context);
+        if (context != null) testChangelogAsset(context);
 
         StringBuilder sb = new StringBuilder();
         sb.append("通过 ").append(passed).append(" 项");
@@ -1553,6 +1554,49 @@ public final class SelfTests {
         expect(offline != null && offline.offlineArt, "抱盆图可解码且标记为离线素材");
         } finally {
             PetAssets.releaseExcept(before);
+        }
+    }
+
+    /**
+     * v1.14.3：检查「关于 · 更新记录」用的素材。
+     *
+     * <p>CHANGELOG.md 由 build.sh 在构建时复制进 assets/，所以这条断言同时验证了两件事：
+     * 素材确实进了 APK，而且它里面有当前版本那一条（防止「App 里的更新记录忘了跟着版本更新」）。
+     */
+    private static void testChangelogAsset(Context context) {
+        String text = readAsset(context, "CHANGELOG.md");
+        expect(text != null && text.length() > 500, "更新记录素材存在于 APK 且非空");
+        if (text == null) return;
+        expect(text.startsWith("# 更新记录"), "更新记录素材以标题开头");
+        String ver = MainActivity.VERSION.endsWith("-android")
+                ? MainActivity.VERSION.substring(0, MainActivity.VERSION.length() - "-android".length())
+                : MainActivity.VERSION;
+        expect(text.contains("### v" + ver), "更新记录里有当前版本 v" + ver);
+        int entries = 0;
+        int idx = text.indexOf("### v");
+        while (idx >= 0) {
+            entries++;
+            idx = text.indexOf("### v", idx + 5);
+        }
+        expect(entries >= 10, "更新记录条目数合理（实际 " + entries + " 条）");
+    }
+
+    /** 读 assets 里的文本文件；读不到返回 null（调用方自己判断，不假装成功）。 */
+    private static String readAsset(Context context, String name) {
+        java.io.InputStream in = null;
+        try {
+            in = context.getAssets().open(name);
+            java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) bos.write(buf, 0, n);
+            return new String(bos.toByteArray(), "UTF-8");
+        } catch (Exception e) {
+            return null;
+        } finally {
+            if (in != null) {
+                try { in.close(); } catch (Exception ignored) { }
+            }
         }
     }
 }

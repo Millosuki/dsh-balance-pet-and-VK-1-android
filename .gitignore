@@ -3,6 +3,8 @@ build/
 out/
 *.apk
 *.idsig
+# build.sh 会把仓库根目录的 CHANGELOG.md 复制进来（构建产物，不代表仓库内容）
+assets/CHANGELOG.md
 
 # 签名与密钥：绝对不要入库
 *.jks

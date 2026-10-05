@@ -33,6 +33,12 @@ WORK="$PROJ/build"
 rm -rf "$WORK"
 mkdir -p "$WORK/res-compiled" "$WORK/gen" "$WORK/classes" "$WORK/dex"
 mkdir -p "$(dirname "$OUT")"
+# 把仓库根目录的 CHANGELOG.md 同步进 assets/：APK 里「关于 · 更新记录」读的就是它。
+# （这是构建产物，已写进 .gitignore，不入库。）
+if [ -f "$PROJ/CHANGELOG.md" ]; then
+  mkdir -p "$PROJ/assets"
+  cp "$PROJ/CHANGELOG.md" "$PROJ/assets/CHANGELOG.md"
+fi
 
 echo "[1/6] aapt2 compile"
 aapt2 compile --dir "$PROJ/res" -o "$WORK/res.zip" || exit 1

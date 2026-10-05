@@ -11,9 +11,19 @@ public final class UpstreamInfo {
     public static final String REPO = "https://github.com/VKmich16/VK-1";
     /** 第二个上游：Whale 挂件的交互与「高度自定义泡泡」体系（代码 MIT；其 assets/** 不在 MIT 内）。 */
     public static final String REPO_WHALE = "https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget";
-    /** 作者署名：本项目是纯 AI 结对编程（webcoding）产物 —— AI 主写，Millosuki 提需求与验收。 */
-    public static final String AUTHOR_AI = "Operit (AI)";
-    public static final String AUTHOR_HUMAN = "Millosuki";
+    /** 本仓库（README 顶部与「关于」对话框里都会显示）。 */
+    public static final String REPO_SELF = "https://github.com/Millosuki/dsh-balance-pet-and-VK-1-android";
+    /**
+     * 作者署名（与 README 顶部逐字一致）：纯 AI 结对编程（webcoding）产物 ——
+     * 代码由 AI 编写并自验；需求、验收与日常反馈来自通讯作者。
+     */
+    public static final String AUTHOR_AI_PRIMARY = "DeepSeek-V4.1-Flash";
+    public static final String AUTHOR_AI_SECOND = "DeepSeek-V4-Pro-0813";
+    public static final String AUTHOR_CONTACT = "Millosuki";
+    /** 编写本项目所使用的 AI Agent 应用（不是作者，是工具）。 */
+    public static final String AGENT_APP = "Operit";
+    public static final String AGENT_APP_REPO = "https://github.com/AAswordman/Operit";
+    public static final String AGENT_APP_SITE = "https://operit.app";
 
     /** 上游 README 标注的版本。 */
     public static final String UPSTREAM_VERSION = "v1.3.1";

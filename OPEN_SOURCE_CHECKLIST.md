@@ -32,8 +32,9 @@
 
 1. ✅ **代码许可证 = MIT**（2026-10-05 作者定）：跟两个上游一致（VK-1 是 MIT 且明确允许移植使用其素材、注明来源即可；
    Whale 插件的代码也是 MIT）。已落地 `LICENSE`。
-2. ✅ **素材标注**：`LICENSE` 里分两栏写明 —— VK-1 的立绘/音效随 MIT 分发并保留来源说明；
-   `assets/sprite-whale.png` 原样携带、**不在本项目 MIT 范围内**（按其上游 PROVENANCE 的 as-is 条款）。
+2. ✅ **素材标注**：素材分两栏写在 **`NOTICE`** —— VK-1 的 5 张立绘 + `res/raw/hit.mp3` 随 MIT 分发并保留来源说明；
+   `assets/sprite-whale.png` 与 `res/raw/ya1.mp3`、`ya2.mp3`、`d1.mp3`、`d2.mp3` 原样携带、
+   **不在本项目 MIT 范围内**（按其上游 PROVENANCE 的 as-is 条款）。`LICENSE` 保持纯标准 MIT 正文。
 3. ✅ **仓库名与作者署名**（2026-10-05 作者定）：仓库名 **`dsh-balance-pet-android`**；
    署名 = **纯 AI 结对编程（webcoding）产物：AI（Operit）主写，Millosuki 提需求与验收**。
    已落地 README 顶部 + `UpstreamInfo.AUTHOR_AI / AUTHOR_HUMAN`。
@@ -46,7 +47,8 @@
 ## 五、发布前最后一遍
 
 - ✅ README 顶部加「非官方移植，仅供学习交流」声明（2026-10-05 落地）
-- ✅ `LICENSE`(MIT) + 素材分栏说明落地
+- ✅ `LICENSE` = 纯标准 MIT 正文（GitHub 可识别成 MIT 徽标）+ `NOTICE` = 素材许可边界
+- ✅ 更新记录搬进 App（v1.14.3：「设置 → 通用 → 关于」，`CHANGELOG.md` 构建时打进 assets）
 - ✅ README 顶部补**作者署名**与**上游与致谢**（两个上游仓库链接 + 感谢）
 - ✅ 换成**正式 release 签名**（keystore / 密码在仓库外；指纹写进 `docs/BUILD.md`）
 - ✅ `docs/ARCHITECTURE.md` 刷新（42 个类 / 约 1.75 万行 / 自检 904 项 + 角色·备份分组）
